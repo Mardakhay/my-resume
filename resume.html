@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mardakhay Ravinov — Front-end Developer based in Azerbaijan." />
+  <title>Mardakhay Ravinov — Front-end Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --cream:      #f7f5f0;
+      --ink:        #1a1a18;
+      --muted:      #888880;
+      --subtle:     #555550;
+      --line:       #ddddd5;
+      --accent:     #c8593a;
+      --white:      #ffffff;
+      --serif:      'DM Serif Display', serif;
+      --sans:       'DM Sans', sans-serif;
+      --pad-x:      clamp(24px, 8vw, 120px);
+      --header-h:   56px;
+    }
+
+    /* ── BASE ── */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--header-h);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── SVG ICON SPRITE ── */
+    .icon-sprite {
+      display: none;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      padding: 0 var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--header-h);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--ink);
+      background-color: var(--line);
+      outline: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: clamp(64px, 12vw, 140px) var(--pad-x) clamp(48px, 8vw, 100px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-top: 18px;
+    }
+
+    .hero-bio {
+      font-size: 0.875rem;
+      color: var(--subtle);
+      max-width: 480px;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    /* ── CONTACT ── */
+    address.hero-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-style: normal;
+    }
+
+    .hero-contact a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .hero-contact a:hover,
+    .hero-contact a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .hero-contact svg {
+      flex-shrink: 0;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 64px;
+      padding-right: 32px;
+    }
+
+    /* ── SECTION CONTENT ── */
+    .section-content {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-content:last-child {
+      border-bottom: none;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      margin-bottom: 48px;
+    }
+
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-role,
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: normal;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .edu-degree {
+      font-size: 1.05rem;
+    }
+
+    .exp-date {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .bullets {
+      list-style: none;
+    }
+
+    .bullets li {
+      font-size: 0.875rem;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 6px;
+      color: var(--subtle);
+    }
+
+    .bullets li:last-child {
+      margin-bottom: 0;
+    }
+
+    .bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .exp-desc {
+      font-size: 0.875rem;
+      color: var(--subtle);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      margin-bottom: 36px;
+    }
+
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-note {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--line);
+      padding: 6px 14px;
+      border-radius: 2px;
+      background: var(--white);
+      transition: border-color 0.2s, background-color 0.2s;
+      cursor: default;
+      user-select: none;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      background-color: var(--cream);
+    }
+
+    .subsection-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.875rem;
+      color: var(--subtle);
+    }
+
+    .lang-list span {
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 28px;
+      margin-bottom: 20px;
+      background: var(--white);
+      transition: border-color 0.2s;
+    }
+
+    .project-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .project-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: normal;
+      line-height: 1.3;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .project-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
+    }
+
+    .project-links a:hover,
+    .project-links a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--subtle);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--line);
+      padding: 3px 10px;
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .cert-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+    }
+
+    .cert-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: normal;
+      line-height: 1.3;
+    }
+
+    .cert-issuer {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .cert-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .cert-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .cert-skill {
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      address.hero-contact {
+        align-items: flex-start;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .section-label {
+        padding-top: 48px;
+        padding-right: 0;
+        padding-bottom: 8px;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-content {
+        padding-top: 20px;
+        border-bottom: none;
+      }
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      header { position: static; }
+      .hero { padding-top: 24px; }
+      .section-content { border-bottom: 1px solid #ccc; }
+      .cert-card, .project-card { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG ICON SPRITE -->
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <!-- Phone -->
+      <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2"/>
+        <line x1="12" y1="18" x2="12.01" y2="18"/>
+      </symbol>
+      <!-- Email -->
+      <symbol id="icon-email" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </symbol>
+      <!-- LinkedIn -->
+      <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </symbol>
+      <!-- GitHub -->
+      <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- HEADER -->
+  <header>
+    <nav aria-label="Page sections">
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Introduction">
+    <div>
+      <h1 class="hero-title">Mardakhay <em>Ravinov</em></h1>
+      <p class="hero-sub">Front-end Developer</p>
+      <p class="hero-bio">Front-end developer with a background in finance and biomedical engineering, passionate about building clean, accessible web interfaces. Currently expanding into modern JavaScript frameworks while bringing strong analytical and problem-solving skills from years in the banking sector.</p>
+    </div>
+
+    <address class="hero-contact">
+      <a href="tel:+994514320997" aria-label="Phone number">
+        <svg width="13" height="13" aria-hidden="true" focusable="false"><use href="#icon-phone"/></svg>
+        +994 51 432 09 97
+      </a>
+      <a href="mailto:alfredrockankeur@gmail.com" aria-label="Email address">
+        <svg width="13" height="13" aria-hidden="true" focusable="false"><use href="#icon-email"/></svg>
+        alfredrockankeur@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/mardakhay-ravinov/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in new tab)">
+        <svg width="13" height="13" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg>
+        LinkedIn ↗
+      </a>
+      <a href="https://github.com/Mardakhay" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in new tab)">
+        <svg width="13" height="13" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg>
+        GitHub ↗
+      </a>
+    </address>
+  </section>
+
+  <main>
+
+    <!-- EXPERIENCE -->
+    <div class="section-label" id="experience">Experience</div>
+    <section class="section-content" aria-labelledby="experience">
+
+      <article class="exp-item">
+        <h2 class="exp-role">Leading Specialist, Overdraft Tracking Group — ABB</h2>
+        <div class="exp-date"><span class="badge">Current</span> December 2024 – Present</div>
+        <ul class="bullets">
+          <li>Monitor and track technical overdrafts caused by system errors or processing delays.</li>
+          <li>Investigate transaction discrepancies and identify root causes of technical overdrafts.</li>
+          <li>Collaborate with internal teams to resolve issues.</li>
+          <li>Assist in customer communication, providing updates and resolving concerns.</li>
+          <li>Implement solutions to prevent future technical overdraft occurrences.</li>
+        </ul>
+      </article>
+
+      <article class="exp-item">
+        <h2 class="exp-role">Leading Specialist, Initial Loan Tracking Division — ABB</h2>
+        <div class="exp-date">August 2024 – December 2024</div>
+      </article>
+
+      <article class="exp-item">
+        <h2 class="exp-role">Specialist, Initial Loan Tracking Division — ABB</h2>
+        <div class="exp-date">April 2022 – August 2024</div>
+        <ul class="bullets">
+          <li>Analyzed and assessed problematic loans to determine potential risks and solutions.</li>
+          <li>Communicated with clients to negotiate repayment plans and resolve issues.</li>
+          <li>Maintained accurate records and documentation of loan cases.</li>
+        </ul>
+      </article>
+
+      <article class="exp-item">
+        <h2 class="exp-role">Trainee — ABB</h2>
+        <div class="exp-date">September 2021 – December 2021</div>
+        <p class="exp-desc">"Digital Literacy" internship program. Gained knowledge in banking legislation and operations, and improved team collaboration and social interaction abilities.</p>
+      </article>
+
+      <article class="exp-item">
+        <h2 class="exp-role">Biomedical Engineering Trainee — AzeriMed LLC</h2>
+        <div class="exp-date">February 2021 – June 2021</div>
+        <ul class="bullets">
+          <li>Assisted in installing and maintaining medical equipment.</li>
+          <li>Troubleshot and repaired devices to ensure compliance with regulations.</li>
+          <li>Learned through hands-on experience and patient interactions.</li>
+        </ul>
+      </article>
+
+    </section>
+
+    <!-- EDUCATION -->
+    <div class="section-label" id="education">Education</div>
+    <section class="section-content" aria-labelledby="education">
+
+      <article class="edu-item">
+        <h2 class="edu-degree">Master of Science (M.Sc) in Biomedical Engineering</h2>
+        <div class="exp-date">Azerbaijan State Oil and Industry University · Sep 2021 – Jun 2023</div>
+        <p class="edu-note">Graduated with honors</p>
+      </article>
+
+      <article class="edu-item">
+        <h2 class="edu-degree">Bachelor of Science (B.Sc) in Biomedical Engineering</h2>
+        <div class="exp-date">Azerbaijan State Oil and Industry University · Sep 2017 – Jun 2021</div>
+      </article>
+
+    </section>
+
+    <!-- SKILLS -->
+    <div class="section-label" id="skills">Skills</div>
+    <section class="section-content" aria-labelledby="skills">
+
+      <div class="skills-grid" role="list" aria-label="Technical skills">
+        <span class="skill-tag" role="listitem">HTML5</span>
+        <span class="skill-tag" role="listitem">CSS3</span>
+        <span class="skill-tag" role="listitem">JavaScript ES6</span>
+        <span class="skill-tag" role="listitem">Git &amp; GitHub</span>
+        <span class="skill-tag" role="listitem">Bootstrap 4/5</span>
+        <span class="skill-tag" role="listitem">SASS</span>
+        <span class="skill-tag" role="listitem">React</span>
+        <span class="skill-tag" role="listitem">TypeScript</span>
+        <span class="skill-tag" role="listitem">SQL</span>
+        <span class="skill-tag" role="listitem">Figma</span>
+      </div>
+
+      <p class="subsection-label">Languages</p>
+      <div class="lang-list" role="list" aria-label="Spoken languages">
+        <span role="listitem">English</span>
+        <span role="listitem">Russian</span>
+        <span role="listitem">Azerbaijani</span>
+      </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <div class="section-label" id="projects">Projects</div>
+    <section class="section-content" aria-labelledby="projects">
+
+      <article class="project-card">
+        <div class="project-header">
+          <h2 class="project-name">Mardakhay To-Do</h2>
+          <div class="project-links">
+            <a href="https://github.com/Mardakhay/mardakhay-to-do-list" target="_blank" rel="noopener noreferrer" aria-label="GitHub repo for Mardakhay To-Do (opens in new tab)">
+              <svg width="12" height="12" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg>
+              GitHub ↗
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">A Notion-inspired task manager built with vanilla HTML, CSS, and JavaScript. Supports priority levels, live search, filtering, completion toggling, and task stats — all with zero dependencies and no build tools.</p>
+        <div class="project-tags">
+          <span class="project-tag">HTML5</span>
+          <span class="project-tag">CSS3</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Responsive</span>
+          <span class="project-tag">No frameworks</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-header">
+          <h2 class="project-name">DigiBank — Digital Banking Landing Page</h2>
+          <div class="project-links">
+            <a href="https://github.com/Mardakhay/first-landing-page" target="_blank" rel="noopener noreferrer" aria-label="GitHub repo for DigiBank (opens in new tab)">
+              <svg width="12" height="12" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg>
+              GitHub ↗
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">A responsive landing page for a fictional digital banking platform. Features a sticky nav, hero section, features overview, pricing plans, and FAQ — built with semantic HTML and modern CSS layout techniques.</p>
+        <div class="project-tags">
+          <span class="project-tag">HTML5</span>
+          <span class="project-tag">CSS3</span>
+          <span class="project-tag">Flexbox</span>
+          <span class="project-tag">Grid</span>
+          <span class="project-tag">Responsive</span>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section-label" id="certifications">Licenses &amp; Certifications</div>
+    <section class="section-content" aria-labelledby="certifications">
+      <div class="cert-grid">
+
+        <article class="cert-card">
+          <h3 class="cert-name">The Structured Query Language (SQL)</h3>
+          <p class="cert-issuer">University of Colorado Boulder</p>
+          <p class="cert-meta">Issued Jun 2025 · ID: A78TW6FL7W35</p>
+          <div class="cert-skills"><span class="cert-skill">SQL</span><span class="cert-skill">PostgreSQL</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Introduction to AI</h3>
+          <p class="cert-issuer">Google</p>
+          <p class="cert-meta">Issued Jun 2025 · ID: 1WBNNHS73OSG</p>
+          <div class="cert-skills"><span class="cert-skill">Artificial Intelligence</span><span class="cert-skill">Machine Learning</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn Sass Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued May 2024 · ID: 664CA2FB60</p>
+          <div class="cert-skills"><span class="cert-skill">SASS</span><span class="cert-skill">SCSS</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn Intermediate CSS Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued May 2024 · ID: 66333E9C21</p>
+          <div class="cert-skills"><span class="cert-skill">Responsive Web Design</span><span class="cert-skill">Browser Compatibility</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn Bootstrap Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued May 2024 · ID: 663DCDC3AB</p>
+          <div class="cert-skills"><span class="cert-skill">Bootstrap</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn Intermediate JavaScript Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Jan 2024 · ID: 65B8B8F060</p>
+          <div class="cert-skills"><span class="cert-skill">Async JavaScript</span><span class="cert-skill">HTTP &amp; Fetch API</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Software Design Principles Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Dec 2023 · ID: 65818D8FBF</p>
+          <div class="cert-skills"><span class="cert-skill">Design Patterns</span><span class="cert-skill">UML</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn Git: Introduction Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Dec 2023 · ID: 6581403528</p>
+          <div class="cert-skills"><span class="cert-skill">Git</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn JavaScript Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Dec 2023 · ID: 6580309786</p>
+          <div class="cert-skills"><span class="cert-skill">JavaScript</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn CSS Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Oct 2023 · ID: 652FE40B21</p>
+          <div class="cert-skills"><span class="cert-skill">CSS</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">BI Dashboards with Tableau Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Oct 2023 · ID: 6528D9D3E1</p>
+          <div class="cert-skills"><span class="cert-skill">Tableau</span><span class="cert-skill">Business Intelligence</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Analyze Data with Microsoft Excel Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Oct 2023 · ID: 6526854FE1</p>
+          <div class="cert-skills"><span class="cert-skill">Data Analysis</span><span class="cert-skill">Microsoft Excel</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Learn HTML Course</h3>
+          <p class="cert-issuer">Codecademy</p>
+          <p class="cert-meta">Issued Oct 2023 · ID: 652555DA21</p>
+          <div class="cert-skills"><span class="cert-skill">HTML5</span></div>
+        </article>
+
+        <article class="cert-card">
+          <h3 class="cert-name">Business Communication &amp; Business Correspondence Rules</h3>
+          <p class="cert-issuer">ALPHA Coaching &amp; Consulting</p>
+          <p class="cert-meta">Issued May 2023 · ID: 2023-I005-0034</p>
+          <div class="cert-skills"><span class="cert-skill">Business Communication</span></div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Mardakhay Ravinov &nbsp;·&nbsp; Front-end Developer</p>
+  </footer>
+
+</body>
+</html>
