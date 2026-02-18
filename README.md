@@ -11,7 +11,7 @@ A clean, minimal personal resume website built with plain HTML and CSS. No frame
 ## Structure
 
 ```
-resume.html   ← the entire site, single file
+index.html   ← the entire site, single file
 README.md     ← this file
 ```
 
@@ -25,11 +25,11 @@ README.md     ← this file
 
 ## How to run
 
-Just open `resume.html` in any browser. No server needed.
+Just open `index.html` in any browser. No server needed.
 
 ## How to update content
 
-All content lives directly in `resume.html`. Common updates:
+All content lives directly in `index.html`. Common updates:
 
 **Add a skill:**
 ```html
